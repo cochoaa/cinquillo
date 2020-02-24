@@ -1,0 +1,12 @@
+Humano vs pc
+reparte todas las cartas
+48 cartas: oros, bastos,copas,espadas
+empieza con el 5
+se descarta maximo 1 carta
+se descarta la carta con 5 o una progresion de lo que haya en la mesa 
+sino hay cartas para lanzar, se pasa el turno
+No se puede pasar si hay cartas para lanzar
+Gana quien se quede sin cartas
+
+
+
