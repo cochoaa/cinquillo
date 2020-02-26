@@ -1,4 +1,4 @@
-package juegos.cinquillo;
+package juegos.cinquillo.util;
 
 import java.util.ArrayList;
 
