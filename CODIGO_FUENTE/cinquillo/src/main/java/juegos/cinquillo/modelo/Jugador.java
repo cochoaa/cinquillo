@@ -23,20 +23,48 @@ public class Jugador {
 		List<Carta> cartasALanzar= getPosiblesCartasJugador(posiblesCartasTablero);
 		int maximo=cartasALanzar.size();
 		int indice=-1;
-		do {
-			if(tipo.equals(TipoJugador.HUMANO)) {
-				System.out.println("Seleccione el una alternativa");
-				imprimir(cartasALanzar);
+		imprimir(cartasALanzar);
+		if(this.tipo.equals(TipoJugador.HUMANO)) {
+			boolean esIndiceCorrecto=false;
+			while(!esIndiceCorrecto) {
+				System.out.print("Seleccione una carta: ");
 				indice=seleccionarCartaHumano();
-			}else {
-				indice=new Random().nextInt(maximo);
+				if(indice-1>=0 && indice-1 <maximo) {
+					esIndiceCorrecto=true;
+					indice=indice-1;
+				}
 			}
+			
+		}else {
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+			indice=new Random().nextInt(maximo);
 		}
-		while(indice>=0 && indice <maximo);
-		Carta carta=cartas.remove(indice);
-		return carta;
+		Carta cartaSeleccionada=cartasALanzar.get(indice);
+		eliminarCarta(cartaSeleccionada);
+		return cartaSeleccionada;
 		
 	}
+	
+	private  void eliminarCarta(Carta  carta) {
+		List<Carta> cartasTemp= new ArrayList<Carta>(0);
+		//cartas.clear();
+		for (Carta c : this.cartas) {
+			if(!c.equals(carta))
+				cartasTemp.add(c);
+		}
+		this.cartas=cartasTemp;
+	}
+	
+	public String getCartasString() {
+		return this.cartas.toString();
+	}
+	
+	
 	private int seleccionarCartaHumano() {
 		@SuppressWarnings("resource")
 		Scanner scanner= new Scanner(System.in);
@@ -51,15 +79,17 @@ public class Jugador {
 	
 	private void imprimir(List<Carta> cartas) {
 		int i=1;
+		System.out.println("Elija una opcion:");
 		for(Carta carta: cartas) {
 			System.out.println(i+" : "+carta.toString());
+			i=i+1;
 		}
 	}
 	
 	private List<Carta> getPosiblesCartasJugador(List<Carta> posiblesCartasTablero){
 		List<Carta> posiblesCartasJugador= new ArrayList<Carta>(0);
 		for(Carta posibleCartaTablero:posiblesCartasTablero) {
-			if(cartas.contains(posibleCartaTablero)) {
+			if(this.cartas.contains(posibleCartaTablero)) {
 				posiblesCartasJugador.add(posibleCartaTablero);
 			}
 		}
