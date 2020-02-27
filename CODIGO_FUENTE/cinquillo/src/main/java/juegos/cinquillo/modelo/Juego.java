@@ -23,6 +23,7 @@ public class Juego {
 		this.tablero=new Tablero();
 		this.jugadores=new ColaCircular<Jugador>(0);
 		configurarJugadores();
+		repartirCartas();
 		
 	}
 
@@ -36,7 +37,7 @@ public class Juego {
 		}
 	}
 	
-	public void repartirCartas() {
+	private void repartirCartas() {
 		int numeroJugadores=this.numeroJugadoresHumanos+this.numeroJugadoresMaquina;
 		List<Carta> cartas=barajarCartas();
 		int cantidadCartasJugador=cartas.size()/numeroJugadores;
@@ -57,11 +58,11 @@ public class Juego {
 		return mazo;
 	}
 	
-	public boolean isGanador(Jugador jugador) {
+	private boolean isGanador(Jugador jugador) {
 		return jugador.getCartas().isEmpty();
 	}
 	
-	public List<Carta> obtenerPosiblesCartasParaLanzar(){
+	private List<Carta> obtenerPosiblesCartasParaLanzar(){
 		List<Carta> posiblesCartasParaLanzar= new ArrayList<Carta>(0);
 		Map<Palo,List<Carta>> cartas=tablero.getCartas();
 		if(!hayCartas(cartas)) {
@@ -94,6 +95,43 @@ public class Juego {
 			cantidad=cantidad+cartasPalo.size();
 		}
 		return cantidad>0;
+	}
+	
+	public ColaCircular<Jugador> getJugadores() {
+		return jugadores;
+	}
+
+	public void setJugadores(ColaCircular<Jugador> jugadores) {
+		this.jugadores = jugadores;
+	}
+
+	public void iniciar() {
+			System.out.println("====================Cinquillo: Modo Partida Simple Juego =============================");
+			System.out.println();
+			boolean hayGanador = false;
+			Juego juego = new Juego(numeroJugadoresHumanos, numeroJugadoresMaquina);
+			juego.repartirCartas();
+			Tablero tablero = juego.getTablero();
+			/******************Inicio del Juego*************************/
+			while (!hayGanador) {
+				
+				tablero.mostrarTablero();
+				Jugador player = juego.siguienteTurno();
+				System.out.println("Turno: "+player.getNombre());
+				System.out.println("Tu baraja: "+player.getCartasString());
+				List<Carta> posiblesCartasTablero=juego.obtenerPosiblesCartasParaLanzar();
+				if(player.tieneCartasParaLanzar(posiblesCartasTablero)) {
+					Carta carta=player.lanzarCarta(posiblesCartasTablero);
+					tablero.agregarCarta(carta);
+					System.out.println("Carta Lanzada: "+carta.toString());
+				}else {
+					System.out.println("Carta Lanzada: Jugador pasa el turno.");
+				}
+				if (juego.isGanador(player)) {
+					hayGanador = true;
+				}
+			}
+
 	}
 	
 	public Jugador siguienteTurno() {

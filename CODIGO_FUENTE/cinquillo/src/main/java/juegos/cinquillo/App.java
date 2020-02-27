@@ -1,12 +1,8 @@
 package juegos.cinquillo;
 
-import java.util.List;
 import java.util.Scanner;
 
-import juegos.cinquillo.modelo.Carta;
 import juegos.cinquillo.modelo.Juego;
-import juegos.cinquillo.modelo.Jugador;
-import juegos.cinquillo.modelo.Tablero;
 
 /**
  * Hello world!
@@ -20,14 +16,15 @@ public class App {
 		boolean seguirJugando = true;
 		
 		do {
-			System.out.println("====================Nuevo Juego Cinquillo!=============================");
-			System.out.println();
-			boolean hayGanador = false;
 			Juego juego = new Juego(numeroJugadoresHumanos, numeroJugadoresMaquina);
+			juego.iniciar();
+			/*
+			boolean hayGanador = false;
+			
 			juego.repartirCartas();
-			Tablero tablero = juego.getTablero();
+			Tablero tablero = juego.getTablero();*/
 			/******************Inicio del Juego*************************/
-			while (!hayGanador) {
+			/*while (!hayGanador) {
 				
 				tablero.mostrarTablero();
 				Jugador player = juego.siguienteTurno();
@@ -45,7 +42,7 @@ public class App {
 					System.out.println("El Ganador es:" + player.getNombre());
 					hayGanador = true;
 				}
-			}
+			}*/
 			/******************Fin del Juego*************************/
 
 			System.out.print("Desea seguir: ");
