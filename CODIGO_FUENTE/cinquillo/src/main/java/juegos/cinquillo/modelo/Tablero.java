@@ -38,11 +38,6 @@ public class Tablero {
 			sbuffer.append(palo.name());
 			sbuffer.append(": ");
 			sbuffer.append(cartasPalo.toString());
-			/*for (Carta carta : cartasPalo) {
-				sbuffer.append(carta.getNumero());
-				sbuffer.append(",");
-			}*/
-			//sbuffer.append("]");
 			System.out.println(sbuffer.toString());
 		}
 	}

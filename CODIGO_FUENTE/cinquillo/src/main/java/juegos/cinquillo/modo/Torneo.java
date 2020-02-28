@@ -8,6 +8,7 @@ import java.util.Map;
 
 import juegos.cinquillo.modelo.Juego;
 import juegos.cinquillo.modelo.Jugador;
+import juegos.cinquillo.util.Metodo;
 
 public class Torneo extends Juego {
 	private Map<Jugador, Integer> puntos;
@@ -35,6 +36,8 @@ public class Torneo extends Juego {
 			campeon=getCampeon();
 			mostrarPuntajes();
 			if (campeon==null) {
+				System.out.println("Espere un momento para la siguiente ronda...");
+				Metodo.pausa(4);
 				super.prepararTablero();
 				super.repartirCartas();
 			}

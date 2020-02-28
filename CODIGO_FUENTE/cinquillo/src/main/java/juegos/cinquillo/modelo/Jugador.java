@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import juegos.cinquillo.tipo.TipoJugador;
+import juegos.cinquillo.util.Metodo;
 
 public class Jugador {
 	private int id;
@@ -38,12 +39,7 @@ public class Jugador {
 			}
 			
 		}else {
-			try {
-				Thread.sleep(0001);
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
-			}
+			Metodo.pausa(1);
 			indice=new Random().nextInt(maximo);
 		}
 		Carta cartaSeleccionada=cartasALanzar.get(indice);
