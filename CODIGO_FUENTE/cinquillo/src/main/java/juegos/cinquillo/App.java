@@ -3,6 +3,8 @@ package juegos.cinquillo;
 import java.util.Scanner;
 
 import juegos.cinquillo.modelo.Juego;
+import juegos.cinquillo.modo.Simple;
+import juegos.cinquillo.modo.Torneo;
 
 /**
  * Hello world!
@@ -13,11 +15,33 @@ public class App {
 	public static void main(String[] args) {
 		int numeroJugadoresHumanos = 1;
 		int numeroJugadoresMaquina = 1;
+		int modoJuego=1;
 		boolean seguirJugando = true;
-		
+		Juego juego=null;
 		do {
-			Juego juego = new Juego(numeroJugadoresHumanos, numeroJugadoresMaquina);
-			juego.iniciarPartida();
+			System.out.print("Numero de jugadores humanos: ");
+			Scanner scan1=new Scanner(System.in);
+			numeroJugadoresHumanos=scan1.nextInt();
+			System.out.print("Numero de jugadores PC: ");
+			Scanner scan2=new Scanner(System.in);
+			numeroJugadoresMaquina=scan2.nextInt();
+			if(numeroJugadoresHumanos+numeroJugadoresMaquina<2) {
+				System.out.print("Deben haber mas de 2 jugadores ...");
+				continue;
+			}
+			System.out.print("Ingrese el modo de Juego: Simple (1) / Torneo (2): ");
+			Scanner scan3=new Scanner(System.in);
+			modoJuego=scan3.nextInt();
+			if(modoJuego==1) {
+				System.out.println("====================Cinquillo: Modo Partida Simple Juego =============================");
+				System.out.println();
+				juego = new Simple(numeroJugadoresHumanos, numeroJugadoresMaquina);
+			}else {
+				System.out.println("=============================Cinquillo: Modo Torneo =============================");
+				System.out.println();
+				juego = new Torneo(numeroJugadoresHumanos, numeroJugadoresMaquina);
+			}
+			juego.iniciar();
 			juego.mostrarGanador();
 			/*
 			boolean hayGanador = false;

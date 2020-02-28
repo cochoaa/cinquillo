@@ -26,7 +26,7 @@ public class Carta {
 	@Override
 	public boolean equals(Object o) {
 		Carta carta= (Carta)o;
-		if(this.numero==carta.numero && this.palo.equals(carta.getPalo()))
+		if(this.numero==carta.getNumero() && this.palo.equals(carta.getPalo()))
 			return true;
 		else
 		    return false;

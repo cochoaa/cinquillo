@@ -20,32 +20,28 @@ public class Juego {
 		super();
 		this.numeroJugadoresHumanos = numeroJugadoresHumanos;
 		this.numeroJugadoresMaquina = numeroJugadoresMaquina;
-		this.tablero=new Tablero();
-		this.jugadores=new ColaCircular<Jugador>(0);
+		prepararTablero();
 		configurarJugadores();
 		repartirCartas();
 		
 	}
 
 	private void configurarJugadores() {
+		this.jugadores=new ColaCircular<Jugador>(0);
+		int id=1;
 		for(int i=1;i<=this.numeroJugadoresHumanos;i++) {
-			jugadores.encolar(new Jugador("Player "+i,TipoJugador.HUMANO));
+			jugadores.encolar(new Jugador(id,"Player "+i,TipoJugador.HUMANO));
+			id=id+1;
 		}
 		
 		for(int i=1;i<=this.numeroJugadoresMaquina;i++) {
-			jugadores.encolar(new Jugador("PC "+i,TipoJugador.MAQUINA));
+			jugadores.encolar(new Jugador(id,"PC "+i,TipoJugador.MAQUINA));
+			id=id+1;
 		}
+		
 	}
 	
-	private void repartirCartas() {
-		int numeroJugadores=this.numeroJugadoresHumanos+this.numeroJugadoresMaquina;
-		List<Carta> cartas=barajarCartas();
-		int cantidadCartasJugador=cartas.size()/numeroJugadores;
-		for(int i=0;i<numeroJugadores;i++) {
-			Jugador j=jugadores.siguiente();
-			j.setCartas(cartas.subList(i*cantidadCartasJugador,(i+1)*cantidadCartasJugador));
-		}
-	}
+	
 	
 	private List<Carta> barajarCartas(){
 		List<Carta> mazo=new ArrayList<Carta>(48);
@@ -97,21 +93,28 @@ public class Juego {
 		return cantidad>0;
 	}
 	
-	public ColaCircular<Jugador> getJugadores() {
+	protected void prepararTablero() {
+		this.tablero=new Tablero();
+	}
+	
+	protected void repartirCartas() {
+		int numeroJugadores=this.numeroJugadoresHumanos+this.numeroJugadoresMaquina;
+		List<Carta> cartas=barajarCartas();
+		int cantidadCartasJugador=cartas.size()/numeroJugadores;
+		for(int i=0;i<numeroJugadores;i++) {
+			Jugador j=jugadores.siguiente();
+			j.setCartas(cartas.subList(i*cantidadCartasJugador,(i+1)*cantidadCartasJugador));
+		}
+	}
+	
+	protected ColaCircular<Jugador> getJugadores() {
 		return jugadores;
 	}
 
-	public void setJugadores(ColaCircular<Jugador> jugadores) {
-		this.jugadores = jugadores;
-	}
 
-	public void iniciarPartida() {
-			System.out.println("====================Cinquillo: Modo Partida Simple Juego =============================");
-			System.out.println();
+	protected void iniciarPartida() {
 			boolean hayGanador = false;
-			/*Juego juego = new Juego(numeroJugadoresHumanos, numeroJugadoresMaquina);*/
 			repartirCartas();
-			/*Tablero tablero = juego.getTablero();*/
 			/******************Inicio del Juego*************************/
 			while (!hayGanador) {
 				
@@ -137,10 +140,14 @@ public class Juego {
  		return jugadores.siguiente();
  	}
 	
+	public void iniciar() {
+		iniciarPartida();
+	}
+	
 	public void mostrarGanador() {
 		for(Jugador jugador:jugadores) {
 			if(isGanador(jugador)) {
-				System.out.println("El Ganador es:---------------------->" + jugador.getNombre());
+				System.out.println("El Ganador es:----------------------> " + jugador.getNombre());
 				return;
 			}
 		}

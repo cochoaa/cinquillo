@@ -8,12 +8,14 @@ import java.util.Scanner;
 import juegos.cinquillo.tipo.TipoJugador;
 
 public class Jugador {
+	private int id;
 	private String nombre;
 	private TipoJugador tipo;
 	private List<Carta> cartas;
 	
-	public Jugador(String nombre,TipoJugador tipo) {
+	public Jugador(int id,String nombre,TipoJugador tipo) {
 		super();
+		this.id=id;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.cartas=new ArrayList<Carta>(0);
@@ -122,5 +124,22 @@ public class Jugador {
 
 	public void setCartas(List<Carta> cartas) {
 		this.cartas = cartas;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Jugador jugador= (Jugador)o;
+		if(this.id==jugador.getId())
+			return true;
+		else
+		    return false;
 	}
 }
