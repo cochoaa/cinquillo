@@ -17,7 +17,8 @@ public class App {
 		
 		do {
 			Juego juego = new Juego(numeroJugadoresHumanos, numeroJugadoresMaquina);
-			juego.iniciar();
+			juego.iniciarPartida();
+			juego.mostrarGanador();
 			/*
 			boolean hayGanador = false;
 			

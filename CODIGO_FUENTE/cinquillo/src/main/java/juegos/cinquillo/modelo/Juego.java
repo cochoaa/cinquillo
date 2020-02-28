@@ -105,21 +105,21 @@ public class Juego {
 		this.jugadores = jugadores;
 	}
 
-	public void iniciar() {
+	public void iniciarPartida() {
 			System.out.println("====================Cinquillo: Modo Partida Simple Juego =============================");
 			System.out.println();
 			boolean hayGanador = false;
-			Juego juego = new Juego(numeroJugadoresHumanos, numeroJugadoresMaquina);
-			juego.repartirCartas();
-			Tablero tablero = juego.getTablero();
+			/*Juego juego = new Juego(numeroJugadoresHumanos, numeroJugadoresMaquina);*/
+			repartirCartas();
+			/*Tablero tablero = juego.getTablero();*/
 			/******************Inicio del Juego*************************/
 			while (!hayGanador) {
 				
-				tablero.mostrarTablero();
-				Jugador player = juego.siguienteTurno();
+				this.tablero.mostrarTablero();
+				Jugador player =siguienteTurno();
 				System.out.println("Turno: "+player.getNombre());
 				System.out.println("Tu baraja: "+player.getCartasString());
-				List<Carta> posiblesCartasTablero=juego.obtenerPosiblesCartasParaLanzar();
+				List<Carta> posiblesCartasTablero=obtenerPosiblesCartasParaLanzar();
 				if(player.tieneCartasParaLanzar(posiblesCartasTablero)) {
 					Carta carta=player.lanzarCarta(posiblesCartasTablero);
 					tablero.agregarCarta(carta);
@@ -127,23 +127,25 @@ public class Juego {
 				}else {
 					System.out.println("Carta Lanzada: Jugador pasa el turno.");
 				}
-				if (juego.isGanador(player)) {
+				if (isGanador(player)) {
 					hayGanador = true;
 				}
 			}
-
 	}
 	
-	public Jugador siguienteTurno() {
-		return jugadores.siguiente();
+	private Jugador siguienteTurno() {
+ 		return jugadores.siguiente();
+ 	}
+	
+	public void mostrarGanador() {
+		for(Jugador jugador:jugadores) {
+			if(isGanador(jugador)) {
+				System.out.println("El Ganador es:---------------------->" + jugador.getNombre());
+				return;
+			}
+		}
 	}
-
-	public Tablero getTablero() {
-		return tablero;
-	}
-
-	public void setTablero(Tablero tablero) {
-		this.tablero = tablero;
-	}
+	
+	
 	
 }

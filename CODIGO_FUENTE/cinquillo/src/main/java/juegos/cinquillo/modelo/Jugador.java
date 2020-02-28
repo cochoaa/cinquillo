@@ -37,7 +37,7 @@ public class Jugador {
 			
 		}else {
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(0001);
 			} catch (InterruptedException e) {
 				
 				e.printStackTrace();
@@ -52,7 +52,6 @@ public class Jugador {
 	
 	private  void eliminarCarta(Carta  carta) {
 		List<Carta> cartasTemp= new ArrayList<Carta>(0);
-		//cartas.clear();
 		for (Carta c : this.cartas) {
 			if(!c.equals(carta))
 				cartasTemp.add(c);
